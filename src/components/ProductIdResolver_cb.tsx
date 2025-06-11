@@ -3,7 +3,7 @@ import { useState } from "react";
 
 type ResolveMethod = 'name' | 'symbol' | 'pair';
 
-export default function ProductIdResolver( {onResolved} : {onResolved: (productId: string) => void;} ) {
+export default function ProductIdResolverCB( {onResolved} : {onResolved: (productId: string) => void;} ) {
     const [resolveMethod, setResolveMethod] = useState<ResolveMethod>('name');
     const [inputValue, setInputValue] = useState('');
     const [resolvedProductId, setResolvedProductId] = useState<string | null>(null);
@@ -14,7 +14,7 @@ export default function ProductIdResolver( {onResolved} : {onResolved: (productI
 
         setLoading(true);
         try{
-            const res = await fetch('http://localhost:5000/api/resolve_product_id_cb', {
+            const res = await fetch('http://localhost:5000/api/resolve_product_id', {
                 method : 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({method: resolveMethod, value: inputValue})

@@ -86,8 +86,8 @@ def print_available_usdproductids():
     for pusd in sorted(usd_products):
         print(f" - {pusd}")
 
-def get_coin_from_user_submitted_basename():
-    baseid = get_user_selected_basename()
+def get_coin_from_user_submitted_basename(baseid_input: str):
+    baseid = baseid_input.strip().upper()
     public_products = client.get_public_products()
     products = public_products.products
     matched_df = pd.DataFrame([
@@ -104,8 +104,8 @@ def get_coin_from_user_submitted_basename():
     matched_coin_df = matched_df[matched_df["Base-Name"].str.lower() == baseid.lower()]
     return matched_coin_df
 
-def get_coin_from_user_submitted_baseid():
-    baseid = get_user_selected_basesymbol()
+def get_coin_from_user_submitted_baseid(baseid_input: str):
+    baseid = baseid_input.strip().upper()
     public_products = client.get_public_products()
     products = public_products.products
     matched_df = pd.DataFrame([
