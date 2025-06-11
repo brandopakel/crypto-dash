@@ -1,4 +1,4 @@
-import Coin from "@/components/Coin";
+import ProductID from "@/components/ProductID"
 
 export default function Home(){
 
@@ -8,7 +8,7 @@ export default function Home(){
       <p className="mt-2 text-muted-foreground">
         Connect your wallet and receive strategy insights based on live market data. Track your wallet data. Explore what's available.
       </p>
-      <Coin/>
+      <ProductID/>
     </main>
   )
 }

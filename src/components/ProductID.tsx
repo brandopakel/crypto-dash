@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ProductIdResolverCB from "./ProductIdResolver_cb";
 
-export default function Coin(){
+export default function ProductID(){
     const [productId, setProductId] = useState<string | null>(null);
 
     return(

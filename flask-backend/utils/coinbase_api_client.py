@@ -210,12 +210,19 @@ def get_product_id_from_basename(baseid: str) -> str | None:
         print(f"[Error] No trading pairs found for base asset '{baseid}'.")
         return None
     
+    return[
+        {
+            "product_id" : p.product_id,
+            "quote_currency": p.quote_currency_id
+        } for p in matching_products
+    ]
+    
+    """
     print(f"\nAvailable quote currencies for {baseid.title()}:")
     quote_map = {}
     for i,product in enumerate(matching_products):
         print(f"{i+1} - {product.quote_currency_id}")
         quote_map[i+1] = product
-    
     try:
         choice = int(input("\nEnter the number of the quote currency you want: "))
         selected = quote_map.get(choice)
@@ -227,7 +234,7 @@ def get_product_id_from_basename(baseid: str) -> str | None:
             return None
     except ValueError:
         print("[Error] Please enter a valid number.")
-        return None
+        return None"""
     
 def get_product_id_from_baseid(baseid=str) -> str | None:
     products = client.get_public_products().products
@@ -240,6 +247,14 @@ def get_product_id_from_baseid(baseid=str) -> str | None:
         print(f"[Error] No trading pairs found for base asset '{baseid}'.")
         return None
     
+    return[
+        {
+            "product_id" : p.product_id,
+            "quote_currency": p.quote_currency_id
+        } for p in matching_products
+    ]
+    
+    """
     print(f"\nAvailable quote currencies for {baseid.upper()}:")
     quote_map = {}
     for i,product in enumerate(matching_products):
@@ -257,4 +272,4 @@ def get_product_id_from_baseid(baseid=str) -> str | None:
             return None
     except ValueError:
         print("[Error] Please enter a valid number.")
-        return None
+        return None"""
