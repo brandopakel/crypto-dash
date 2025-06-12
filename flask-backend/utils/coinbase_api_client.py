@@ -156,12 +156,15 @@ def get_product_candles(id=str):
     return df
     #return candle
 
-def fetch_all_candles(id=str):
+def fetch_all_candles(id:str,start:int,end:int,granularity:str):
     MAX_CANDLES = 350
 
     product_id = id
-    start_dt, end_dt = set_user_time_interval()
-    granularity = set_user_granularity()
+    #start_dt, end_dt = set_user_time_interval()
+    #granularity = set_user_granularity()
+    start_dt = start
+    end_dt = end
+    granularity = granularity
     validated_granularity, user_granularity_seconds = validate_granularity(start_dt,end_dt,granularity)
 
     all_candles = []

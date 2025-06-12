@@ -8,8 +8,8 @@ class Coin:
         self.product_id = product_id
         self.df = pd.DataFrame(candles) if candles else pd.DataFrame()
     
-    def get_candles(self):
-        candles = fetch_all_candles(self.product_id)
+    def get_candles(self, start, end, granularity):
+        candles = fetch_all_candles(self.product_id, start, end, granularity)
         if not candles:
             print("⚠️ No candles returned!")
         self.df = aggregate_all_candles(candles)

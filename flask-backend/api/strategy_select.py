@@ -9,5 +9,4 @@ bp = Blueprint('strategy', __name__)
 @bp.route("/api/strategy/select", methods=["POST"])
 def multi_strat_select():
     data = request.get_json()
-
-    
+  

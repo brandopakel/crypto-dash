@@ -7,12 +7,8 @@ bp_resolve_product_id_cb = Blueprint('resolve_product_id_cb', __name__)
 def resolve_product_id_cb():
     data = request.get_json()
 
-    print("Received Data:", data)
-
     method = data.get('method')
     value = data.get('value')
-
-    print(f"Method: {method} | Value: {value}")
 
     if not method or not value:
         return jsonify({'error': 'Missing method or value'}), 400

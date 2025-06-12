@@ -1,4 +1,4 @@
-import ProductID from "@/components/ProductID"
+import CoinLoaderContainer from "@/components/CoinLoaderContainer"
 
 export default function Home(){
 
@@ -8,7 +8,7 @@ export default function Home(){
       <p className="mt-2 text-muted-foreground">
         Connect your wallet and receive strategy insights based on live market data. Track your wallet data. Explore what's available.
       </p>
-      <ProductID/>
+      <CoinLoaderContainer/>
     </main>
   )
 }
