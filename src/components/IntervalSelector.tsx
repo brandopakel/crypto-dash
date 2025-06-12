@@ -56,7 +56,7 @@ export default function IntervalSelector({onIntervalSelect}: Props){
         onChange={(e) => setInput(e.target.value)}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
-      <Button onClick={handleSubmit}>Submit Interval</Button>
+      <Button onClick={handleSubmit} className="mb-2">Submit Interval</Button>
     </div>
     )
 

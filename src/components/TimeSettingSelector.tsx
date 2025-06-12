@@ -35,9 +35,8 @@ export default function TimeSettingSelector({onSubmit}: Props){
         {startInterval !== null && endInterval !== null && (
             <>
             <GranularitySelector onGranularitySelect={handleGranularityChange}/>
-
             {granularity && (
-                <Button onClick={handleSubmit}>
+                <Button onClick={handleSubmit} className="mt-4">
                 Submit Time Settings
                 </Button>
           )}
