@@ -2,7 +2,6 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv("/Users/bp/Documents/crypto_site/crypto-site/flask-backend/venv/keys.env")
 BASE_URL = "https://api.coindesk.com/v1"
 API_KEY = os.getenv("CD_KEY")
 

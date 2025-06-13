@@ -9,7 +9,7 @@ import os
 from datetime import timedelta, datetime
 import time
 
-load_dotenv("/Users/bp/Documents/crypto_site/crypto-site/flask-backend/venv/keys.env")
+
 api_key = os.getenv("KEY")
 api_secret = os.getenv("PRIVATE_KEY")
 

@@ -2,7 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv("/Users/bp/Documents/crypto_site/crypto-site/flask-backend/venv/keys.env")
+
 BASE_URL = 'https://api.coingecko.com/api/v3/'
 CG_API_KEY = os.getenv("CG_KEY")
 
