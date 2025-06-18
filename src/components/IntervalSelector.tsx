@@ -48,7 +48,7 @@ export default function IntervalSelector({onIntervalSelect}: Props){
 
     return(
     <div className="space-y-4">
-      <Label htmlFor="interval">Enter time interval (e.g. 1h, 6h, 1d, 7d, 1m):</Label>
+      <Label htmlFor="interval">Enter time interval (e.g. 1h, 6h, 1d, 7d, 1m, 3m):</Label>
       <Input
         id="interval"
         placeholder="1h, 1d, 1w, 1m, etc."

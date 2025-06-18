@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from utils.Coin import Coin
+from api.strategy_runner import create_multistrategy_manager
+import json
 
 bp_cb_coin_load = Blueprint("cb_coin_loader", __name__)
 
@@ -30,3 +32,32 @@ def cb_load_coin():
         return jsonify({'product_id': product_id, 'candles': coin_candles})
     except Exception as e:
         return jsonify({'error': f"Failed to load coin: {str(e)}"})
+    
+
+@bp_cb_coin_load.route('/api/plot-strategy', methods=['POST'])
+def plot_strategy():
+    data = request.get_json(force=True)
+    print(f"received plot data: {data}")
+    required = ['start','end','granularity','product_id','strategies']
+    if not all([k in data for k in required]):
+        return jsonify({'error': 'Missing required parameters'}), 400
+    
+    product_id = data['product_id']
+    start = data['start']
+    end = data['end']
+    granularity = data['granularity']
+    strategy_input = data['strategies']
+
+    try:
+        coin = Coin(product_id=product_id)
+        coin.get_candles(start,end,granularity)
+        candles = coin.fetch_candles()
+        manager = create_multistrategy_manager(strategy_input)
+        plottable_coin = manager.apply_strategies(candles)
+        manager.collect_plot_metadata(plottable_coin)
+        plot = manager.plot_combined(plottable_coin)
+        plot_json = json.loads(plot.to_json())
+        return jsonify(plot_json)
+    
+    except Exception as e:
+        return jsonify({'Error': str(e)}), 500

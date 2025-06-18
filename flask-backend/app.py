@@ -5,6 +5,7 @@ from api.cb_load import bp_cb_coin_load
 from api.coingecko_route import coingecko_bp
 from api.coindesk_route import coindesk_bp
 from api.dexscreener_route import dexscreener_bp
+from api.supabase_route import supabase_bp
 from dotenv import load_dotenv
 
 
@@ -18,6 +19,7 @@ app.register_blueprint(bp_cb_coin_load)
 app.register_blueprint(coingecko_bp)
 app.register_blueprint(coindesk_bp)
 app.register_blueprint(dexscreener_bp)
+app.register_blueprint(supabase_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)

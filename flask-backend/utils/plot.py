@@ -193,5 +193,5 @@ def plot_strategy(coin : pd.DataFrame, title : str = "Strategy Visualization", o
             fig.data[i].showlegend = False
             fig.data[i].name = ''
             fig.data[i].legendgroup = ''
-    fig.show()
+    #fig.show()
     return fig
