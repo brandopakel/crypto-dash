@@ -23,9 +23,9 @@ def create_strategy_objects(selected_strategies: list[str]) -> list[Strategy]:
         },
         "sma": {
             "class": MovingAverageCrossoverStrategy,
-            "desc": "Simple Moving Average crossover (trend following)"
+            "desc": "Simple Moving Average Crossover (trend following)"
         },
-        "z": {
+        "z-score": {
             "class": ZScoreMeanReversionStrategy,
             "desc": "Z-Score of Price vs Moving Average (mean reversion)"
         },
@@ -69,17 +69,17 @@ def create_strategy_objects(selected_strategies: list[str]) -> list[Strategy]:
     order=0
     trend=0
 
-    selected_strategies = []
+    s_strategies = []
     for name in selected_strategies:
         creator = strategy_map.get(name.lower())
         if creator:
             strategy_class = creator['class']
             if strategy_class == RateOfChangeStrategy:
-                selected_strategies.append(strategy_class(period, threshold))
+                s_strategies.append(strategy_class(period, threshold))
             elif strategy_class == ElliotWaveStrategy:
-                selected_strategies.append(strategy_class(order,trend))
+                s_strategies.append(strategy_class(order,trend))
             else:
-                selected_strategies.append(strategy_class())
+                s_strategies.append(strategy_class())
         else:
             print(f"⚠️ Unknown strategy: {name}")
-    return selected_strategies
+    return s_strategies

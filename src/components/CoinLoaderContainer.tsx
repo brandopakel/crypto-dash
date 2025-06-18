@@ -5,11 +5,13 @@ import TimeSettingSelector from "./TimeSettingSelector";
 //import Plot from "react-plotly.js";
 import DynamicPlot from "./DynamicPlot";
 import { Button } from "./ui/button";
+import StrategySelector from "./StrategySelector";
 
 export default function CoinLoaderContainer(){
     const [productId, setProductId] = useState<string | null>(null);
     const [coinData, setCoinData] = useState<any>(null);
     const [chartData, setChartData] = useState<any | null>(null);
+    const [selectedStrategies, setSelectedStrategies] = useState<string[]>([]);
 
     const handleResolved = (resolvedProductId: string) => {
       setProductId(resolvedProductId);
@@ -47,10 +49,10 @@ export default function CoinLoaderContainer(){
     }
 
     const handleChartData = async() => {
-      
+
       const payload = {
         ...coinData,
-        strategies: []
+        strategies: selectedStrategies
       }
 
       try{
@@ -80,7 +82,7 @@ export default function CoinLoaderContainer(){
       if(shouldFetch) {
         handleChartData();
       }
-    }, [coinData]);
+    }, [coinData, selectedStrategies]);
 
     return(
       <div className="p-6 space-y-6">
@@ -98,12 +100,21 @@ export default function CoinLoaderContainer(){
               {!chartData && (<p>Loading...</p>)}
 
               {chartData && (
+                <>
                 <DynamicPlot
                 data={chartData.data}
                 layout={chartData.layout}
                 config={{responsive: true}}
-                style={{width: '100%', height: '700px'}}
+                style={{width: '100%'}}
                 />
+
+                <div className="w-full mt-6 p-4 bg-background border rounded-xl shadow space-y-4">
+                  <h3 className="text-lg font-semibold">Overlay Strategies</h3>
+                  <StrategySelector
+                    onSelect={(strategies) => setSelectedStrategies(strategies)}
+                  />
+                </div>
+                </>
               )}
           </div>
         )}

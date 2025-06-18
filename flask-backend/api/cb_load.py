@@ -54,6 +54,7 @@ def plot_strategy():
         candles = coin.fetch_candles()
         manager = create_multistrategy_manager(strategy_input)
         plottable_coin = manager.apply_strategies(candles)
+        print(f"Here is the strategy df: ", plottable_coin)
         manager.collect_plot_metadata(plottable_coin)
         plot = manager.plot_combined(plottable_coin)
         plot_json = json.loads(plot.to_json())
