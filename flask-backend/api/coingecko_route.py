@@ -8,14 +8,14 @@ def proxy_coingecko(endpoint):
     method = request.method
     params = request.args.to_dict()
     data = request.get_json(silent=True)
-    headers = dict(request.headers)
+    #headers = dict(request.headers)
 
     try:
         result = call_coingecko_api(
             path=endpoint,
             method=method,
             params=params,
-            headers=headers,
+            headers={},
             data=data
         )
         return jsonify(result)
