@@ -1,6 +1,8 @@
 'use client';
 import { useState } from "react";
 
+const BASE_URL = process.env.NEXT_PUBLIC_FLASK_API_URL
+
 type ResolveMethod = 'name' | 'symbol' | 'pair';
 type ProductOption = {product_id : string; quote_currency: string};
  
@@ -16,7 +18,7 @@ export default function ProductIdResolverCB( {onResolved} : {onResolved: (produc
 
         setLoading(true);
         try{
-            const res = await fetch('http://localhost:5000/api/resolve_product_id_cb', {
+            const res = await fetch(`${BASE_URL}/api/resolve_product_id_cb`, {
                 method : 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({method: resolveMethod, value: inputValue})

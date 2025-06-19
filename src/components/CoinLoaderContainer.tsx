@@ -7,6 +7,8 @@ import DynamicPlot from "./DynamicPlot";
 import { Button } from "./ui/button";
 import StrategySelector from "./StrategySelector";
 
+const BASE_URL = process.env.NEXT_PUBLIC_FLASK_API_URL
+
 export default function CoinLoaderContainer(){
     const [productId, setProductId] = useState<string | null>(null);
     const [coinData, setCoinData] = useState<any>(null);
@@ -29,7 +31,7 @@ export default function CoinLoaderContainer(){
       }
 
       try{
-        const res = await fetch('http://localhost:5000/api/cb_load', {
+        const res = await fetch(`${BASE_URL}/api/cb_load`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(payload)
@@ -58,7 +60,7 @@ export default function CoinLoaderContainer(){
       }
 
       try{
-        const res = await fetch('http://localhost:5000/api/plot-strategy', {
+        const res = await fetch(`${BASE_URL}/api/plot-strategy`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(payload)

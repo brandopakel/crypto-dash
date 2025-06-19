@@ -1,3 +1,4 @@
+import CoinGeckoList from "./market/CoinGeckoList"
 import CoinLoaderContainer from "@/components/CoinLoaderContainer"
 
 export default function Home(){
@@ -8,7 +9,7 @@ export default function Home(){
       <p className="mt-2 text-muted-foreground">
         Connect your wallet and receive strategy insights based on live market data. Track your wallet data. Explore what's available.
       </p>
-      <CoinLoaderContainer/>
+      <CoinGeckoList/>
     </main>
   )
 }
