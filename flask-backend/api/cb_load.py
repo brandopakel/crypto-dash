@@ -47,12 +47,35 @@ def plot_strategy():
     end = data['end']
     granularity = data['granularity']
     strategy_input = data['strategies']
+    config_input = data.get('config',{})
+
+    trend = None
+    order = None
+    threshold = None
+    period = None
 
     try:
         coin = Coin(product_id=product_id)
         coin.get_candles(start,end,granularity)
         candles = coin.fetch_candles()
-        manager = create_multistrategy_manager(strategy_input)
+        if 'ROC' in strategy_input:
+            roc_settings = config_input.get('ROC',{})
+            threshold = roc_settings.get('threshold',3)
+            period = roc_settings.get('period',14)
+        if 'EW' in strategy_input:
+            ew_settings = config_input.get('EW', {})
+            trend = ew_settings.get('trend', 'bullish')
+            order = ew_settings.get('order', 5)
+        
+        print("📦 EW config received:", trend, order)
+
+        manager = create_multistrategy_manager(
+            strategy_input,
+            period=period,
+            threshold=threshold,
+            order=order,
+            trend=trend
+        )
         plottable_coin = manager.apply_strategies(candles)
         print(f"Here is the strategy df: ", plottable_coin)
         manager.collect_plot_metadata(plottable_coin)

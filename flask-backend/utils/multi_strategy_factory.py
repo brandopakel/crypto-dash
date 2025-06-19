@@ -3,7 +3,7 @@ from pandas import DataFrame
 from utils.user_input import get_user_roc_inputs, get_user_ew_trend
 from strategies.elliot_wave import find_local_extrema, get_user_order_inputs
 
-def create_strategy_objects(selected_strategies: list[str]) -> list[Strategy]:
+def create_strategy_objects(selected_strategies: list[str], period=None, threshold=None, order=None, trend=None) -> list[Strategy]:
     strategy_map = {
         "bollinger": {
             "class": BollingerBandsStrategy,
@@ -61,23 +61,15 @@ def create_strategy_objects(selected_strategies: list[str]) -> list[Strategy]:
 
     #Testing for now:
 
-    #ROC
-    period = 0
-    threshold = 0
-
-    #EW
-    order=0
-    trend=0
-
     s_strategies = []
     for name in selected_strategies:
         creator = strategy_map.get(name.lower())
         if creator:
             strategy_class = creator['class']
             if strategy_class == RateOfChangeStrategy:
-                s_strategies.append(strategy_class(period, threshold))
+                s_strategies.append(strategy_class(period or 14, threshold or 3))
             elif strategy_class == ElliotWaveStrategy:
-                s_strategies.append(strategy_class(order,trend))
+                s_strategies.append(strategy_class(order or 5,trend or 'bullish'))
             else:
                 s_strategies.append(strategy_class())
         else:

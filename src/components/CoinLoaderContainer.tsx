@@ -12,6 +12,7 @@ export default function CoinLoaderContainer(){
     const [coinData, setCoinData] = useState<any>(null);
     const [chartData, setChartData] = useState<any | null>(null);
     const [selectedStrategies, setSelectedStrategies] = useState<string[]>([]);
+    const [strategyConfig, setStrategyConfig] = useState<Record<string, any>>({});
 
     const handleResolved = (resolvedProductId: string) => {
       setProductId(resolvedProductId);
@@ -52,7 +53,8 @@ export default function CoinLoaderContainer(){
 
       const payload = {
         ...coinData,
-        strategies: selectedStrategies
+        strategies: selectedStrategies,
+        config: strategyConfig
       }
 
       try{
@@ -82,7 +84,7 @@ export default function CoinLoaderContainer(){
       if(shouldFetch) {
         handleChartData();
       }
-    }, [coinData, selectedStrategies]);
+    }, [coinData, selectedStrategies, strategyConfig]);
 
     return(
       <div className="p-6 space-y-6">
@@ -111,7 +113,7 @@ export default function CoinLoaderContainer(){
                 <div className="w-full mt-6 p-4 bg-background border rounded-xl shadow space-y-4">
                   <h3 className="text-lg font-semibold">Overlay Strategies</h3>
                   <StrategySelector
-                    onSelect={(strategies) => setSelectedStrategies(strategies)}
+                    onSelect={(strategies, config) => {setSelectedStrategies(strategies); setStrategyConfig(config || {});}}
                   />
                 </div>
                 </>
