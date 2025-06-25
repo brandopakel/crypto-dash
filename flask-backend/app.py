@@ -6,6 +6,11 @@ from api.coingecko_route import coingecko_bp
 from api.coindesk_route import coindesk_bp
 from api.dexscreener_route import dexscreener_bp
 from api.supabase_route import supabase_bp
+from api.search import search_bp
+from database.sync_coingecko_coins import sync_coingecko_coins
+
+
+
 from dotenv import load_dotenv
 
 
@@ -20,6 +25,8 @@ app.register_blueprint(coingecko_bp)
 app.register_blueprint(coindesk_bp)
 app.register_blueprint(dexscreener_bp)
 app.register_blueprint(supabase_bp)
+app.register_blueprint(search_bp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    sync_coingecko_coins()
+    #app.run(debug=True)
