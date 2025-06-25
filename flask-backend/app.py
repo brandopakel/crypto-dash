@@ -28,5 +28,5 @@ app.register_blueprint(supabase_bp)
 app.register_blueprint(search_bp)
 
 if __name__ == "__main__":
-    sync_coingecko_coins()
-    #app.run(debug=True)
+    #sync_coingecko_coins()
+    app.run(debug=True)

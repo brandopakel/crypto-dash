@@ -1,6 +1,7 @@
 import CoinGeckoList from "./market/CoinGeckoList"
 import CoinLoaderContainer from "@/components/CoinLoaderContainer"
 import GlobalSearch from "@/components/GlobalSearch"
+import GlobalCryptoDash from "./dashboard/GlobalCryptoDash"
 
 export default function Home(){
   return(
@@ -9,7 +10,7 @@ export default function Home(){
       <p className="mt-2 text-muted-foreground">
         Connect your wallet and receive strategy insights based on live market data. Track your wallet data. Explore what's available.
       </p>
-      <GlobalSearch/>
+      <GlobalCryptoDash/>
       <CoinGeckoList/>
     </main>
   )
