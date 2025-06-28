@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 //https://api.coingecko.com/api/v3/coins/list
 //http://localhost:5000/api/coingecko/coins/list
@@ -17,7 +18,7 @@ export default function CoinGeckoList(){
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        async function fetchCoins(){
+        /*async function fetchCoins(){
             try{
                 const res = await fetch(`${BASE_URL}/api/coingecko/coins/list`);
                 if(!res.ok){
@@ -33,10 +34,25 @@ export default function CoinGeckoList(){
             } finally{
                 setLoading(false);
             }
-        }
+        }*/
 
-        fetchCoins();
-    }, [])
+        const fetchFromSupabase = async () => {
+            const {data, error} = await supabase.from('coingecko_coins').select('id, symbol, name').limit(1000);
+
+            //console.log("✅ Supabase coin list data:", data);
+
+            if (error) {
+                console.error("❌ Supabase error:", error);
+                setError("Failed to load coins");
+            } else {
+                setCoins(data || []);
+            }
+
+            setLoading(false);
+            };
+
+            fetchFromSupabase();
+        }, [])
 
     if(loading) return <p>Loading coins...</p>;
     if(error) return <p className="text-red-500">{error}</p>;

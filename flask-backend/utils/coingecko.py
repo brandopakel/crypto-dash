@@ -10,6 +10,9 @@ def call_coingecko_api(path: str, method='GET', params=None, headers=None, data=
     url = f"{BASE_URL}/{path.lstrip('/')}"
     headers = headers or {}
 
+    #print("Coingecko called url:", url)
+    #print("sent params:", params)
+
     if "pro-api.coingecko.com" in BASE_URL and CG_API_KEY:
         headers['x-cg-pro-api-key'] = CG_API_KEY
 
