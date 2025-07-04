@@ -53,6 +53,7 @@ export default function Home(){
             {({
               account,
               chain,
+              openAccountModal,
               openConnectModal,
               authenticationStatus,
               mounted,
@@ -63,7 +64,7 @@ export default function Home(){
               return (
                 <button
                   disabled={!ready}
-                  onClick={openConnectModal}
+                  onClick={connected ? openAccountModal : openConnectModal}
                   className="w-full h-12 px-6 bg-blue-600 hover:bg-blue-900 text-white font-semibold rounded-2xl transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {connected ? `${account.displayName}` : 'Connect Wallet'}

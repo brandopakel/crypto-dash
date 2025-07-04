@@ -8,7 +8,7 @@ import {mainnet, polygon, optimism, arbitrum, base, type Chain} from 'wagmi/chai
 import {ReactNode, useEffect, useMemo, useState} from 'react';
 
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react'
-import {WalletAdapter, WalletAdapterNetwork} from '@solana/wallet-adapter-base'
+import {WalletAdapter, WalletAdapterNetwork, WalletReadyState} from '@solana/wallet-adapter-base'
 import {PhantomWalletAdapter, SolflareWalletAdapter, CoinbaseWalletAdapter, TorusWalletAdapter, LedgerWalletAdapter} from '@solana/wallet-adapter-wallets'
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui'
 import {clusterApiUrl} from '@solana/web3.js'
@@ -42,9 +42,9 @@ const solanaNetwork = WalletAdapterNetwork.Mainnet
 const solanaEndpoint = clusterApiUrl(solanaNetwork)
 
 function SolanaWalletProviderWrapper({children}: {children: ReactNode}){
-    const [ready, setReady] = useState(false);
+    //const [ready, setReady] = useState(false);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage.removeItem('walletName');
             localStorage.removeItem('wagmi.connected');
@@ -52,28 +52,35 @@ function SolanaWalletProviderWrapper({children}: {children: ReactNode}){
             sessionStorage.setItem('walletReset', 'true');
         }
         setReady(true)
-    }, [])
+    }, [])*/
 
-    const wallets: WalletAdapter[] = useMemo(() => [
+    const wallets: WalletAdapter[] = useMemo(() => {
+        const adapters = [
         new PhantomWalletAdapter(),
         new SolflareWalletAdapter(),
         new CoinbaseWalletAdapter(),
         new TorusWalletAdapter(),
         new LedgerWalletAdapter(),
-        ], []);
+        ];
 
-    if(!ready) return null;
+        return adapters
+        /*return adapters.filter(
+            (wallet) => wallet.readyState === WalletReadyState.Installed || wallet.readyState === WalletReadyState.Loadable
+        );*/
+    }, []);
+
+    //if(!ready) return null;
 
     return(
         <ConnectionProvider endpoint={solanaEndpoint}>
-            <WalletProvider wallets={wallets} autoConnect={false}>
+            <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>{children}</WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
     )
 }
 
-function SolanaWalletResetWrapper({children}: {children: ReactNode}){
+/*function SolanaWalletResetWrapper({children}: {children: ReactNode}){
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
@@ -92,7 +99,7 @@ function SolanaWalletResetWrapper({children}: {children: ReactNode}){
     if (!ready) return null
 
     return <>{children}</>
-}
+}*/
 
 // -- Combined Web3 Provider --
 
